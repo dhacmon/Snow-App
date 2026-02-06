@@ -129,20 +129,15 @@ body{
 .cd-sep{font-family:'Fredoka One',cursive;font-size:1.6rem;opacity:.4;animation:pulse 1s infinite}
 .cd-message{margin-top:14px;font-size:.95rem;font-weight:700}
 
-.milestones{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:12px}
-.milestone{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:5px 10px;font-size:.7rem;font-weight:700;display:flex;align-items:center;gap:4px}
-.milestone.achieved{background:rgba(72,187,120,.25);border-color:var(--green)}
-
 /* ===== SECTIONS ===== */
 .section{margin-bottom:16px}
 .section-title{font-family:'Fredoka One',cursive;font-size:1.1rem;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.25);margin-bottom:10px;padding-left:2px}
 
-/* ===== SNOW CARDS (horizontal scroll mobile) ===== */
-.snow-cards{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;padding-bottom:4px}
-.snow-cards::-webkit-scrollbar{display:none}
+/* ===== SNOW CARDS (fit all in row) ===== */
+.snow-cards{display:flex;gap:8px;padding-bottom:4px}
 .snow-card{
-    flex:0 0 140px;scroll-snap-align:start;
-    background:var(--card);border-radius:var(--r);padding:16px 12px;text-align:center;
+    flex:1 1 0;min-width:0;
+    background:var(--card);border-radius:var(--r);padding:14px 8px;text-align:center;
     box-shadow:0 4px 16px rgba(0,0,0,.08);
 }
 .sc-icon{font-size:1.6rem;margin-bottom:4px}
@@ -170,30 +165,28 @@ body{
 .alert-box.alert-moderate{background:linear-gradient(135deg,#975a16,#ed8936);color:#fff}
 .alert-box.alert-low{background:var(--card);color:var(--deep)}
 
-/* ===== FORECAST (horizontal scroll) ===== */
-.forecast-scroll{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;padding-bottom:4px}
-.forecast-scroll::-webkit-scrollbar{display:none}
+/* ===== FORECAST (fit all in row) ===== */
+.forecast-scroll{display:flex;gap:6px;padding-bottom:4px}
 .fc-card{
-    flex:0 0 120px;scroll-snap-align:start;
-    background:var(--card);border-radius:var(--r);padding:14px 10px;text-align:center;
+    flex:1 1 0;min-width:0;
+    background:var(--card);border-radius:var(--r);padding:10px 4px;text-align:center;
     box-shadow:0 4px 16px rgba(0,0,0,.08);
 }
-.fc-day{font-family:'Fredoka One',cursive;font-size:.8rem;color:var(--purple);margin-bottom:4px}
-.fc-icon{font-size:2rem;display:block;margin-bottom:4px}
-.fc-temp{font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--deep)}
-.fc-low{font-size:.75rem;color:var(--bg3);font-weight:700}
-.fc-desc{font-size:.7rem;font-weight:600;color:#718096;margin-top:3px}
-.fc-snow{display:inline-block;background:linear-gradient(135deg,var(--ice),var(--bg3));color:#fff;font-size:.65rem;font-weight:800;padding:2px 8px;border-radius:12px;margin-top:4px}
-.fc-wind{font-size:.7rem;color:#a0aec0;margin-top:3px}
+.fc-day{font-family:'Fredoka One',cursive;font-size:.65rem;color:var(--purple);margin-bottom:2px}
+.fc-icon{font-size:1.5rem;display:block;margin-bottom:2px}
+.fc-temp{font-family:'Fredoka One',cursive;font-size:1rem;color:var(--deep)}
+.fc-low{font-size:.65rem;color:var(--bg3);font-weight:700}
+.fc-desc{font-size:.6rem;font-weight:600;color:#718096;margin-top:2px}
+.fc-snow{display:inline-block;background:linear-gradient(135deg,var(--ice),var(--bg3));color:#fff;font-size:.55rem;font-weight:800;padding:2px 6px;border-radius:12px;margin-top:2px}
+.fc-wind{font-size:.6rem;color:#a0aec0;margin-top:2px}
 
 /* ===== GAME TABS ===== */
 .game-section .section-title{margin-bottom:8px}
-.game-tabs{display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:12px;padding-bottom:2px}
-.game-tabs::-webkit-scrollbar{display:none}
+.game-tabs{display:flex;gap:4px;margin-bottom:12px;padding-bottom:2px}
 .game-tab{
-    flex-shrink:0;padding:8px 14px;border:2px solid rgba(255,255,255,.2);border-radius:20px;
-    background:rgba(255,255,255,.1);color:#fff;font-family:inherit;font-size:.8rem;font-weight:800;
-    cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .2s;white-space:nowrap;
+    flex:1 1 0;min-width:0;padding:8px 4px;border:2px solid rgba(255,255,255,.2);border-radius:20px;
+    background:rgba(255,255,255,.1);color:#fff;font-family:inherit;font-size:.7rem;font-weight:800;
+    cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .2s;white-space:nowrap;text-align:center;
 }
 .game-tab.active{background:#fff;color:var(--deep);border-color:#fff}
 
@@ -285,8 +278,10 @@ body{
     .app-header h1{font-size:2.2rem}
     .snow-cards{flex-wrap:wrap;justify-content:center}
     .snow-card{flex:1 1 160px}
-    .forecast-scroll{flex-wrap:wrap;justify-content:center}
-    .fc-card{flex:1 1 140px}
+    .fc-card{padding:14px 10px}
+    .fc-day{font-size:.8rem}
+    .fc-icon{font-size:2rem}
+    .fc-temp{font-size:1.2rem}
     .cd-box{min-width:80px;padding:14px 16px}
     .cd-num{font-size:2.6rem}
     .badges{grid-template-columns:repeat(4,1fr)}
@@ -302,7 +297,10 @@ body{
     .cd-num{font-size:3.2rem}
     .snow-card{flex:1 1 200px;padding:24px 16px}
     .sc-value{font-size:2.8rem}
-    .fc-card{flex:1 1 150px;padding:18px 14px}
+    .fc-card{padding:18px 14px}
+    .fc-day{font-size:.8rem}
+    .fc-icon{font-size:2rem}
+    .fc-temp{font-size:1.2rem}
     .game-tabs{justify-content:center}
     .widget-card{max-width:360px;margin:0 auto}
 }
