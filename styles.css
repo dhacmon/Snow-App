@@ -129,6 +129,27 @@ body{
 .cd-sep{font-family:'Fredoka One',cursive;font-size:1.6rem;opacity:.4;animation:pulse 1s infinite}
 .cd-message{margin-top:14px;font-size:.95rem;font-weight:700}
 
+/* ===== NOTIFICATION BUTTON ===== */
+.notif-btn{
+    margin-top:12px;padding:8px 18px;border:2px solid rgba(255,255,255,.25);border-radius:20px;
+    background:rgba(255,255,255,.1);color:#fff;font-family:inherit;font-size:.75rem;font-weight:800;
+    cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .25s;
+}
+.notif-btn:active{transform:scale(.96)}
+.notif-btn.notif-active{background:rgba(72,187,120,.25);border-color:var(--green);color:#fff}
+
+/* ===== DAILY BANNER ===== */
+.daily-banner{
+    margin-bottom:14px;border-radius:var(--r);overflow:hidden;
+    background:linear-gradient(135deg,rgba(246,224,94,.95),rgba(237,137,54,.9));
+    box-shadow:0 4px 16px rgba(0,0,0,.12);animation:fadeInUp .4s ease-out;
+}
+.banner-content{position:relative;padding:14px 36px 14px 16px;color:var(--deep)}
+.banner-close{position:absolute;top:8px;right:12px;font-size:1.3rem;cursor:pointer;opacity:.5;line-height:1;-webkit-tap-highlight-color:transparent}
+.banner-close:hover{opacity:1}
+.banner-title{font-family:'Fredoka One',cursive;font-size:.95rem;margin-bottom:4px}
+.banner-stats{font-size:.8rem;font-weight:700;line-height:1.4}
+
 /* ===== SECTIONS ===== */
 .section{margin-bottom:16px}
 .section-title{font-family:'Fredoka One',cursive;font-size:1.1rem;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.25);margin-bottom:10px;padding-left:2px}
