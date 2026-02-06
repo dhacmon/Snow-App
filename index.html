@@ -88,7 +88,17 @@
                     </div>
                 </div>
                 <p class="cd-message" id="countdownMessage">Pack your bags!</p>
+                <button class="notif-btn" id="btnNotif">🔔 Enable Daily Notifications</button>
             </section>
+
+            <!-- Daily Welcome Banner (shown once per day) -->
+            <div class="daily-banner hidden" id="dailyBanner">
+                <div class="banner-content">
+                    <span class="banner-close" id="bannerClose">&times;</span>
+                    <div class="banner-title" id="bannerTitle">☀️ Good morning!</div>
+                    <div class="banner-stats" id="bannerStats">Loading...</div>
+                </div>
+            </div>
 
             <!-- Snow Conditions -->
             <section class="section">
@@ -139,221 +149,6 @@
             </section>
 
             <!-- Forecast -->
-            <section class="section">
-                <h2 class="section-title">🌤️ 5-Day Forecast</h2>
-                <div class="forecast-scroll" id="forecastCards"></div>
-            </section>
-
-            <!-- Gamification tabs -->
-            <section class="section game-section">
-                <h2 class="section-title">🎮 Family Challenge</h2>
-                <div class="game-tabs">
-                    <button class="game-tab active" data-tab="checklist">📋 Checklist</button>
-                    <button class="game-tab" data-tab="trivia">🧠 Trivia</button>
-                    <button class="game-tab" data-tab="scores">🏆 Scores</button>
-                    <button class="game-tab" data-tab="badges">🎖️ Badges</button>
-                </div>
-
-                <div class="game-panel active" id="panel-checklist">
-                    <div class="checklist" id="checklist"></div>
-                    <div class="checklist-progress">
-                        <div class="cl-bar"><div class="cl-fill" id="checklistFill"></div></div>
-                        <span id="checklistPercent">0%</span>
-                    </div>
-                </div>
-
-                <div class="game-panel" id="panel-trivia">
-                    <p class="trivia-q" id="triviaQuestion">Loading...</p>
-                    <div class="trivia-opts" id="triviaOptions"></div>
-                    <div class="trivia-result" id="triviaResult"></div>
-                    <button class="btn-trivia" id="btnNewTrivia">New Question 🔄</button>
-                </div>
-
-                <div class="game-panel" id="panel-scores">
-                    <div class="add-member">
-                        <input type="text" id="memberName" placeholder="Add family member...">
-                        <button id="btnAddMember">+</button>
-                    </div>
-                    <div class="scoreboard" id="scoreboard"></div>
-                </div>
-
-                <div class="game-panel" id="panel-badges">
-                    <div class="badges" id="badges"></div>
-                </div>
-            </section>
-
-            <!-- Ticker -->
-            <section class="ticker-section">
-                <div class="ticker-wrap"><div class="ticker-content" id="tickerContent"></div></div>
-            </section>
-        </div>
-    </div>
-
-    <!-- Celebration -->
-    <div class="celebration hidden" id="celebrationOverlay">
-        <div class="celeb-inner">
-            <h1>🎉 IT'S TODAY! 🎉</h1>
-            <p>Time to hit the slopes!</p>
-            <div class="confetti-box" id="confetti"></div>
-            <button class="btn-dismiss" onclick="document.getElementById('celebrationOverlay').classList.add('hidden')">Let's Go! 🎿</button>
-        </div>
-    </div>
-
-    <script src="app.js"></script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#1a365d">
-    <title>Hacmon Family Ski Trip</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏔️</text></svg>">
-</head>
-<body>
-    <canvas id="snowCanvas"></canvas>
-
-    <div class="app-container">
-        <!-- iPhone Widget Preview (shown when destination is set) -->
-        <div class="widget-preview hidden" id="widgetPreview">
-            <div class="widget-card" id="widgetCard">
-                <div class="widget-top">
-                    <span class="widget-resort" id="widgetResort">--</span>
-                    <span class="widget-emoji">🏔️</span>
-                </div>
-                <div class="widget-countdown">
-                    <span class="widget-days" id="widgetDays">--</span>
-                    <span class="widget-days-label">days to go</span>
-                </div>
-                <div class="widget-stats">
-                    <div class="widget-stat">
-                        <span class="widget-stat-val" id="widgetSnowTop">--</span>
-                        <span class="widget-stat-lbl">Summit</span>
-                    </div>
-                    <div class="widget-stat-divider"></div>
-                    <div class="widget-stat">
-                        <span class="widget-stat-val" id="widgetSnowBase">--</span>
-                        <span class="widget-stat-lbl">Base</span>
-                    </div>
-                    <div class="widget-stat-divider"></div>
-                    <div class="widget-stat">
-                        <span class="widget-stat-val" id="widgetFresh">--</span>
-                        <span class="widget-stat-lbl">Fresh</span>
-                    </div>
-                </div>
-                <div class="widget-alert" id="widgetAlert">❄️ Checking...</div>
-            </div>
-        </div>
-
-        <!-- Header -->
-        <header class="app-header">
-            <h1>🏔️ Hacmon Family Ski Trip</h1>
-            <p class="tagline">Family vacation countdown</p>
-        </header>
-
-        <!-- Search + Date -->
-        <section class="setup-section">
-            <div class="search-wrapper">
-                <input type="text" id="resortSearch" class="resort-search"
-                    placeholder="Search any ski resort..." autocomplete="off">
-                <div class="search-dropdown hidden" id="searchDropdown"></div>
-            </div>
-            <div class="date-row">
-                <label for="vacationDate">🗓️ Trip date</label>
-                <input type="date" id="vacationDate">
-            </div>
-            <button class="btn-go" id="btnGo">Let's Go! 🚀</button>
-        </section>
-
-        <!-- Dashboard -->
-        <div id="dashboard" class="dashboard hidden">
-
-            <!-- Countdown -->
-            <section class="countdown-section">
-                <h2 id="resortName" class="resort-title">Resort</h2>
-                <div class="excitement-meter">
-                    <div class="meter-bar"><div class="meter-fill" id="meterFill"></div></div>
-                    <span class="excitement-emoji" id="excitementEmoji">🙂</span>
-                </div>
-                <div class="countdown-display">
-                    <div class="cd-box">
-                        <span class="cd-num" id="countDays">--</span>
-                        <span class="cd-lbl">Days</span>
-                    </div>
-                    <span class="cd-sep">:</span>
-                    <div class="cd-box">
-                        <span class="cd-num" id="countHours">--</span>
-                        <span class="cd-lbl">Hrs</span>
-                    </div>
-                    <span class="cd-sep">:</span>
-                    <div class="cd-box">
-                        <span class="cd-num" id="countMinutes">--</span>
-                        <span class="cd-lbl">Min</span>
-                    </div>
-                    <span class="cd-sep">:</span>
-                    <div class="cd-box">
-                        <span class="cd-num" id="countSeconds">--</span>
-                        <span class="cd-lbl">Sec</span>
-                    </div>
-                </div>
-                <p class="cd-message" id="countdownMessage">Pack your bags!</p>
-                <div class="milestones" id="milestones"></div>
-            </section>
-
-            <!-- Snow Conditions (horizontal scroll on mobile) -->
-            <section class="section">
-                <h2 class="section-title">❄️ Snow Conditions</h2>
-                <div class="snow-cards">
-                    <div class="snow-card">
-                        <div class="sc-icon">🏔️</div>
-                        <div class="sc-label">Summit</div>
-                        <div class="sc-value" id="snowTop">--</div>
-                        <div class="sc-unit">cm</div>
-                        <div class="sc-bar"><div class="sc-bar-fill" id="snowBarTop"></div></div>
-                        <div class="sc-quality" id="snowQualityTop">--</div>
-                    </div>
-                    <div class="snow-card">
-                        <div class="sc-icon">⛷️</div>
-                        <div class="sc-label">Base</div>
-                        <div class="sc-value" id="snowBottom">--</div>
-                        <div class="sc-unit">cm</div>
-                        <div class="sc-bar"><div class="sc-bar-fill" id="snowBarBottom"></div></div>
-                        <div class="sc-quality" id="snowQualityBottom">--</div>
-                    </div>
-                    <div class="snow-card">
-                        <div class="sc-icon">🌨️</div>
-                        <div class="sc-label">Fresh 24h</div>
-                        <div class="sc-value" id="freshSnow">--</div>
-                        <div class="sc-unit">cm</div>
-                        <div class="fresh-flakes" id="freshFlakes"></div>
-                    </div>
-                </div>
-                <div class="snow-source" id="snowSource">
-                    <a id="snowSourceLink" href="#" target="_blank" rel="noopener">📊 snow-forecast.com</a>
-                    <span class="snow-source-sep">·</span>
-                    <a id="snowSourceLink2" href="#" target="_blank" rel="noopener">skiresort.info</a>
-                    <span class="snow-source-sep">·</span>
-                    <span>open-meteo.com</span>
-                </div>
-            </section>
-
-            <!-- Alert -->
-            <section class="section">
-                <div class="alert-box" id="alertBox">
-                    <span class="alert-icon" id="alertIcon">🌨️</span>
-                    <div class="alert-body">
-                        <strong id="alertTitle">Snow Alert</strong>
-                        <p id="alertMessage">Checking...</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Forecast (horizontal scroll) -->
             <section class="section">
                 <h2 class="section-title">🌤️ 5-Day Forecast</h2>
                 <div class="forecast-scroll" id="forecastCards"></div>
