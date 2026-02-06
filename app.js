@@ -1,3 +1,7 @@
+// Wrap in IIFE to avoid duplicate const declarations if script is loaded twice
+(function() {
+"use strict";
+
 // ===== RESORT DATABASE =====
 // sfSlug = snow-forecast.com resort slug, srSlug = skiresort.info slug
 const RESORTS = [
@@ -951,3 +955,10 @@ function showDailyBanner() {
     // Auto-hide after 10 seconds
     setTimeout(() => { if (!banner.classList.contains('hidden')) banner.classList.add('hidden'); }, 10000);
 }
+
+// Expose functions used by dynamic onclick attributes
+window.toggleCheck = toggleCheck;
+window.answerTrivia = answerTrivia;
+window.adjScore = adjScore;
+
+})(); // end IIFE
