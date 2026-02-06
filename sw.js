@@ -1,13 +1,18 @@
 // ===== SERVICE WORKER — Snow App Daily Notifications =====
 
-const CACHE_NAME = 'snow-app-v1';
+const CACHE_NAME = 'snow-app-v2';
 
 self.addEventListener('install', e => {
     self.skipWaiting();
 });
 
 self.addEventListener('activate', e => {
-    e.waitUntil(clients.claim());
+    // Clear old caches on activation
+    e.waitUntil(
+        caches.keys().then(names => Promise.all(
+            names.filter(n => n !== CACHE_NAME).map(n => caches.delete(n))
+        )).then(() => clients.claim())
+    );
 });
 
 // Listen for notification trigger from main app

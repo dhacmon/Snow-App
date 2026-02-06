@@ -246,7 +246,14 @@ function loadState() {
         }
         if (d.vacationDate) {
             const dt = new Date(d.vacationDate);
-            if (dt > new Date()) { document.getElementById('vacationDate').value = dt.toISOString().split('T')[0]; state.vacationDate = dt; }
+            if (dt > new Date()) {
+                // Use local date to avoid timezone shift (toISOString uses UTC which shifts date in eastern timezones)
+                const yyyy = dt.getFullYear();
+                const mm = String(dt.getMonth()+1).padStart(2,'0');
+                const dd = String(dt.getDate()).padStart(2,'0');
+                document.getElementById('vacationDate').value = `${yyyy}-${mm}-${dd}`;
+                state.vacationDate = dt;
+            }
         }
         state.familyMembers = d.familyMembers || [];
         state.checkedItems = d.checkedItems || {};
@@ -416,8 +423,9 @@ async function fetchSnowData() {
         const correctedHistBase = histBaseCm !== null ? Math.round(histBaseCm * corrBot) : null;
 
         // Final values: use average of corrected forecast + corrected historical (when both available)
-        const snowTop = Math.round(averageOfValid([correctedSummit, correctedHistSummit]));
-        const snowBot = Math.round(averageOfValid([correctedBase, correctedHistBase]));
+        // Cap at reasonable maximums (no resort exceeds ~500cm summit, ~300cm base)
+        const snowTop = Math.min(500, Math.round(averageOfValid([correctedSummit, correctedHistSummit])));
+        const snowBot = Math.min(300, Math.round(averageOfValid([correctedBase, correctedHistBase])));
 
         console.log(`Snow data — Summit: raw=${rawSummitCm}cm × ${corrTop} = ${correctedSummit}cm, hist=${histSummitCm}cm × ${corrTop} = ${correctedHistSummit}cm → final: ${snowTop}cm`);
         console.log(`Snow data — Base: raw=${rawBaseCm}cm × ${corrBot} = ${correctedBase}cm, hist=${histBaseCm}cm × ${corrBot} = ${correctedHistBase}cm → final: ${snowBot}cm`);
